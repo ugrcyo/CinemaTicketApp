@@ -53,14 +53,12 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Common\DTOS\SaloonDto.cs" />
-    <Compile Include="Manage\FilmDaySessionManage.cs" />
     <Compile Include="Manage\FilmManage.cs" />
     <Compile Include="Manage\SaloonManage.cs" />
     <Compile Include="Manage\SeatManage.cs" />
     <Compile Include="Manage\SessionManage.cs" />
     <Compile Include="OPPClass\IFilm.cs" />
     <Compile Include="OPPClass\IDbProcess.cs" />
-    <Compile Include="OPPClass\IFilmDaySession.cs" />
     <Compile Include="OPPClass\ISaloon.cs" />
     <Compile Include="OPPClass\ISeat.cs" />
     <Compile Include="OPPClass\ISession.cs" />

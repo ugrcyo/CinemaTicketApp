@@ -27,15 +27,14 @@ namespace DataBaseLayer
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Film> Film { get; set; }
-        public virtual DbSet<Film_Day_Session> Film_Day_Session { get; set; }
-        public virtual DbSet<Saloon> Saloon { get; set; }
         public virtual DbSet<Seat> Seat { get; set; }
+        public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
         public virtual DbSet<Ticket_Price> Ticket_Price { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Session> Session { get; set; }
+        public virtual DbSet<Saloon> Saloon { get; set; }
+        public virtual DbSet<Film> Film { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

@@ -20,7 +20,7 @@ namespace ServiceLayer.Manage
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(t.Film_ID.ToString()) && !string.IsNullOrWhiteSpace(t.Session_Beginning.ToString()) && !string.IsNullOrWhiteSpace(t.Film_Duration.ToString()))
+                if (!string.IsNullOrWhiteSpace(t.Session1.ToString()) && !string.IsNullOrWhiteSpace(t.Saloon_ID.ToString()))
                 {
                     db.Session.Add(t);
                     if (db.SaveChanges() > 0)
@@ -50,11 +50,10 @@ namespace ServiceLayer.Manage
                 var updatesession = db.Session.Where(k => k.ID == t.ID).FirstOrDefault();
                 if (updatesession != null)
                 {
-                    if (!string.IsNullOrWhiteSpace(t.Film_Duration.ToString()) && !string.IsNullOrWhiteSpace(t.Session_Beginning.ToString()))
+                    if (!string.IsNullOrWhiteSpace(t.Session1.ToString()) && !string.IsNullOrWhiteSpace(t.Saloon_ID.ToString()))
                     {
-                        updatesession.Film_Duration = t.Film_Duration;
-                        updatesession.Session_Beginning = t.Session_Beginning;
-                        updatesession.Session_Finishing = t.Session_Finishing;
+                        updatesession.Session1 = t.Session1;
+                        updatesession.Saloon_ID = t.Saloon_ID;
 
                         if (db.SaveChanges() > 0)
                         {

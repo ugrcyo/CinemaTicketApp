@@ -17,8 +17,7 @@ namespace DataBaseLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Film()
         {
-            this.Film_Day_Session = new HashSet<Film_Day_Session>();
-            this.Session = new HashSet<Session>();
+            this.Ticket = new HashSet<Ticket>();
         }
     
         public int ID { get; set; }
@@ -26,16 +25,11 @@ namespace DataBaseLayer
         public string Name { get; set; }
         public string Film_Genre { get; set; }
         public byte[] Poster { get; set; }
-        public string Trailer { get; set; }
-        public bool Status { get; set; }
-        public System.DateTime First_Presentation { get; set; }
-        public System.DateTime Last_Presentation { get; set; }
+        public Nullable<bool> Status { get; set; }
         public string Description { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Film_Day_Session> Film_Day_Session { get; set; }
         public virtual Saloon Saloon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Session> Session { get; set; }
+        public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace ServiceLayer.Manage
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(t.Name) && !string.IsNullOrWhiteSpace(t.Film_Genre) &&  t.First_Presentation != null && t.Last_Presentation != null && t.Saloon_ID > 0)
+                if (!string.IsNullOrWhiteSpace(t.Name) && !string.IsNullOrWhiteSpace(t.Film_Genre) &&  t.Saloon_ID > 0)
                 {
                     db.Film.Add(t);
                     if (db.SaveChanges() > 0)
@@ -57,13 +57,11 @@ namespace ServiceLayer.Manage
                     var updatefilm = db.Film.Where(k => k.ID == t.ID).FirstOrDefault();
                     if (updatefilm != null)
                     {
-                    if (!string.IsNullOrWhiteSpace(t.Name) && !string.IsNullOrWhiteSpace(t.Film_Genre.ToString()) && !string.IsNullOrWhiteSpace(t.Saloon_ID.ToString())  &&  !string.IsNullOrWhiteSpace(t.First_Presentation.ToString()) && !string.IsNullOrWhiteSpace(t.Last_Presentation.ToString()))
+                    if (!string.IsNullOrWhiteSpace(t.Name) && !string.IsNullOrWhiteSpace(t.Film_Genre.ToString()) && !string.IsNullOrWhiteSpace(t.Saloon_ID.ToString()))
                         {
                             updatefilm.Name = t.Name;
                             updatefilm.Film_Genre = t.Film_Genre;
                             updatefilm.Saloon_ID = t.Saloon_ID;
-                            updatefilm.First_Presentation = t.First_Presentation;
-                            updatefilm.Last_Presentation = t.Last_Presentation;
                             updatefilm.Status =true;
 
                         if (db.SaveChanges() > 0)

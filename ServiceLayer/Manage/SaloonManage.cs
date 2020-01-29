@@ -18,9 +18,9 @@ namespace ServiceLayer.Manage
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(salon.Name) && !string.IsNullOrWhiteSpace(salon.Row_Count.ToString()) && !string.IsNullOrWhiteSpace(salon.Seat_Count.ToString()))
+                if (!string.IsNullOrWhiteSpace(salon.Name) && !string.IsNullOrWhiteSpace(salon.Capacity.ToString()))
                 {
-                   
+
                     db.Saloon.Add(salon);
 
                     if (db.SaveChanges() > 0)
@@ -74,11 +74,10 @@ namespace ServiceLayer.Manage
                 var updatesaloon = db.Saloon.Where(k => k.ID == saloon.ID).FirstOrDefault();
                 if (updatesaloon != null)
                 {
-                    if (!string.IsNullOrWhiteSpace(saloon.Name) && !string.IsNullOrWhiteSpace(saloon.Row_Count.ToString()) && !string.IsNullOrWhiteSpace(saloon.Seat_Count.ToString()))
+                    if (!string.IsNullOrWhiteSpace(saloon.Name) && !string.IsNullOrWhiteSpace(saloon.Capacity.ToString()))
                     {
                         updatesaloon.Name = saloon.Name;
-                        updatesaloon.Seat_Count = saloon.Seat_Count;
-                        updatesaloon.Row_Count = saloon.Row_Count;
+                        updatesaloon.Capacity = saloon.Capacity;
 
                         if (db.SaveChanges() > 0)
                         {

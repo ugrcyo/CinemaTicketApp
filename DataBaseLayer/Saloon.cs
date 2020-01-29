@@ -17,15 +17,23 @@ namespace DataBaseLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Saloon()
         {
+            this.Seat = new HashSet<Seat>();
+            this.Session = new HashSet<Session>();
+            this.Ticket = new HashSet<Ticket>();
             this.Film = new HashSet<Film>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public int Row_Count { get; set; }
-        public int Seat_Count { get; set; }
-        public bool Status { get; set; }
+        public Nullable<int> Capacity { get; set; }
+        public Nullable<bool> Status { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Seat> Seat { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Session> Session { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ticket> Ticket { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Film> Film { get; set; }
     }

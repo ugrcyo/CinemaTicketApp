@@ -15,12 +15,16 @@ namespace DataBaseLayer
     public partial class Ticket
     {
         public int ID { get; set; }
-        public int Ticket_Price_ID { get; set; }
+        public int Film_ID { get; set; }
         public int Seat_ID { get; set; }
+        public int Ticket_Price_ID { get; set; }
+        public int Saloon_ID { get; set; }
         public bool Status { get; set; }
         public string Description { get; set; }
     
         public virtual Seat Seat { get; set; }
         public virtual Ticket_Price Ticket_Price { get; set; }
+        public virtual Saloon Saloon { get; set; }
+        public virtual Film Film { get; set; }
     }
 }

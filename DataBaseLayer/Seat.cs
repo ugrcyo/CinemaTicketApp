@@ -21,12 +21,14 @@ namespace DataBaseLayer
         }
     
         public int ID { get; set; }
-        public int Film_Day_Session_ID { get; set; }
-        public string Name { get; set; }
+        public int Saloon_ID { get; set; }
+        public int Session_ID { get; set; }
+        public string Seat1 { get; set; }
         public bool Status { get; set; }
     
-        public virtual Film_Day_Session Film_Day_Session { get; set; }
+        public virtual Session Session { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Ticket { get; set; }
+        public virtual Saloon Saloon { get; set; }
     }
 }
