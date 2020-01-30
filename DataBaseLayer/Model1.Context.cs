@@ -241,5 +241,14 @@ namespace DataBaseLayer
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams1");
         }
+    
+        public virtual ObjectResult<string> GET_SALOONNAME(string fILMNAME)
+        {
+            var fILMNAMEParameter = fILMNAME != null ?
+                new ObjectParameter("FILMNAME", fILMNAME) :
+                new ObjectParameter("FILMNAME", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GET_SALOONNAME", fILMNAMEParameter);
+        }
     }
 }

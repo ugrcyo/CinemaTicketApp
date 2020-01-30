@@ -182,6 +182,9 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GET_SALOONNAME" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FILMNAME" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -359,6 +362,9 @@
             <End Role="Film" EntitySet="Film" />
             <End Role="Ticket" EntitySet="Ticket" />
           </AssociationSet>
+          <FunctionImport Name="GET_SALOONNAME" ReturnType="Collection(String)">
+            <Parameter Name="FILMNAME" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -692,6 +698,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GET_SALOONNAME" FunctionName="CinemaDBModel.Store.GET_SALOONNAME" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

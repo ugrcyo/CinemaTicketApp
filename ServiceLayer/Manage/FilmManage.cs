@@ -49,6 +49,11 @@ namespace ServiceLayer.Manage
             return db.Film.ToList();
         }
 
+        public List<Film> SLists(string filmname)
+        {
+            return db.GET_SALOONNAME(filmname).ToString().ToList();
+        }
+
         public string update(Film t)
         {
            

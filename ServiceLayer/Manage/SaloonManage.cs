@@ -66,6 +66,8 @@ namespace ServiceLayer.Manage
             return db.Saloon.ToList();
         }
 
+      
+
         public string update(Saloon saloon)
         {
 
