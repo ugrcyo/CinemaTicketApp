@@ -27,14 +27,14 @@ namespace DataBaseLayer
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Film> Film { get; set; }
+        public virtual DbSet<Saloon> Saloon { get; set; }
         public virtual DbSet<Seat> Seat { get; set; }
-        public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
         public virtual DbSet<Ticket_Price> Ticket_Price { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Saloon> Saloon { get; set; }
-        public virtual DbSet<Film> Film { get; set; }
+        public virtual DbSet<Session> Session { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -249,6 +249,42 @@ namespace DataBaseLayer
                 new ObjectParameter("FILMNAME", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GET_SALOONNAME", fILMNAMEParameter);
+        }
+    
+        public virtual ObjectResult<SP_GET_SALOON_Result> SP_GET_SALOON(Nullable<int> film_ID)
+        {
+            var film_IDParameter = film_ID.HasValue ?
+                new ObjectParameter("film_ID", film_ID) :
+                new ObjectParameter("film_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GET_SALOON_Result>("SP_GET_SALOON", film_IDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_GET_SALOONNAME(Nullable<int> film_ID)
+        {
+            var film_IDParameter = film_ID.HasValue ?
+                new ObjectParameter("film_ID", film_ID) :
+                new ObjectParameter("film_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_GET_SALOONNAME", film_IDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<System.TimeSpan>> SP_GET_SESSION(Nullable<int> sALOON_ID)
+        {
+            var sALOON_IDParameter = sALOON_ID.HasValue ?
+                new ObjectParameter("SALOON_ID", sALOON_ID) :
+                new ObjectParameter("SALOON_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.TimeSpan>>("SP_GET_SESSION", sALOON_IDParameter);
+        }
+    
+        public virtual ObjectResult<string> SP_GET_SESSIONTIME(Nullable<int> sALOON_ID)
+        {
+            var sALOON_IDParameter = sALOON_ID.HasValue ?
+                new ObjectParameter("SALOON_ID", sALOON_ID) :
+                new ObjectParameter("SALOON_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_GET_SESSIONTIME", sALOON_IDParameter);
         }
     }
 }

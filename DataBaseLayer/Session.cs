@@ -22,10 +22,10 @@ namespace DataBaseLayer
     
         public int ID { get; set; }
         public Nullable<int> Saloon_ID { get; set; }
-        public System.TimeSpan Session1 { get; set; }
+        public string Session1 { get; set; }
     
+        public virtual Saloon Saloon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Seat> Seat { get; set; }
-        public virtual Saloon Saloon { get; set; }
     }
 }

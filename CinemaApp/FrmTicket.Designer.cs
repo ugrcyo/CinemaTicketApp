@@ -48,7 +48,6 @@
             this.comboBoxFilmList.Name = "comboBoxFilmList";
             this.comboBoxFilmList.Size = new System.Drawing.Size(212, 21);
             this.comboBoxFilmList.TabIndex = 0;
-            this.comboBoxFilmList.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilmList_SelectedIndexChanged);
             // 
             // comboBoxSaloonList
             // 
@@ -57,6 +56,7 @@
             this.comboBoxSaloonList.Name = "comboBoxSaloonList";
             this.comboBoxSaloonList.Size = new System.Drawing.Size(212, 21);
             this.comboBoxSaloonList.TabIndex = 1;
+            this.comboBoxSaloonList.Click += new System.EventHandler(this.comboBoxSaloonList_Click);
             // 
             // comboBoxSessionList
             // 
@@ -65,6 +65,7 @@
             this.comboBoxSessionList.Name = "comboBoxSessionList";
             this.comboBoxSessionList.Size = new System.Drawing.Size(212, 21);
             this.comboBoxSessionList.TabIndex = 2;
+            this.comboBoxSessionList.Click += new System.EventHandler(this.comboBoxSessionList_Click);
             // 
             // label1
             // 

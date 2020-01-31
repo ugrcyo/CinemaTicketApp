@@ -18,23 +18,22 @@ namespace DataBaseLayer
         public Saloon()
         {
             this.Seat = new HashSet<Seat>();
-            this.Session = new HashSet<Session>();
             this.Ticket = new HashSet<Ticket>();
-            this.Film = new HashSet<Film>();
+            this.Session = new HashSet<Session>();
         }
     
         public int ID { get; set; }
+        public Nullable<int> Film_ID { get; set; }
         public string Name { get; set; }
         public Nullable<int> Capacity { get; set; }
         public Nullable<bool> Status { get; set; }
     
+        public virtual Film Film { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Seat> Seat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Session> Session { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Ticket { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Film> Film { get; set; }
+        public virtual ICollection<Session> Session { get; set; }
     }
 }

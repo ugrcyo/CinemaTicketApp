@@ -43,7 +43,7 @@ namespace CinemaApp
         private void toolStripButtonSave_Click(object sender, EventArgs e)
         {
             session.Saloon_ID = (int)comboBoxSaloonLists.SelectedValue;
-            session.Session1 = TimeSpan.Parse(maskedTextBoxSession.Text);                 
+            session.Session1 = maskedTextBoxSession.Text;                 
             smng.insert(session);
             
         }
@@ -52,7 +52,7 @@ namespace CinemaApp
         {
             
          
-            session.Session1 =TimeSpan.Parse(maskedTextBoxSession.Text);
+            session.Session1 =maskedTextBoxSession.Text;
             string updateResult = smng.update(session);
             MessageBox.Show(updateResult);
         }

@@ -23,6 +23,9 @@ namespace CinemaApp
 
         SaloonManage sln = new SaloonManage();
         FilmManage film = new FilmManage();
+        SessionManage ses = new SessionManage();
+        Saloon saloon = new Saloon();
+        CinemaDBEntities db = new CinemaDBEntities();
         private void FrmTicket_Load(object sender, EventArgs e)
         {
             comboBoxFilmList.DataSource = film.Lists();
@@ -30,16 +33,21 @@ namespace CinemaApp
             comboBoxFilmList.ValueMember = "ID";
         }
 
-      
-
-        private void comboBoxFilmList_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxSaloonList_Click(object sender, EventArgs e)
         {
-            string a;
-            a = comboBoxFilmList.SelectedText;
+            int film_id = Convert.ToInt16(comboBoxFilmList.SelectedValue);
+            comboBoxSaloonList.DataSource = film.SLists(film_id);
+          
+        }
 
-            comboBoxSaloonList.DataSource = film.SLists(a);
-            comboBoxSaloonList.DisplayMember = "Name";
-            comboBoxSaloonList.ValueMember = "ID";
+        private void comboBoxSessionList_Click(object sender, EventArgs e)
+        {
+            //var saloon_name = ((DataRowView)comboBoxSaloonList.SelectedItem).Row[" "];
+
+            var saloon_name = comboBoxSaloonList.Text.ToString();
+            int saloon_id = db.Saloon.FirstOrDefault(k => k.Name == saloon_name).ID;
+
+            comboBoxSaloonList.DataSource = ses.Ses_List(saloon_id);
         }
     }
 }

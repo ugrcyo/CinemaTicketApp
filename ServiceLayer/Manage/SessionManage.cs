@@ -16,6 +16,12 @@ namespace ServiceLayer.Manage
             throw new NotImplementedException();
         }
 
+        public List<string> Ses_List(int saloon_id)
+        {
+            var sessionresult = db.SP_GET_SESSIONTIME(saloon_id);
+            return sessionresult.ToList();
+        }
+
         public string insert(Session t)
         {
             try

@@ -42,7 +42,6 @@ namespace CinemaApp
             film.Film_Genre = comboBoxFilmGenre.Text;
             film.Description = textBoxDescription.Text;
             //film.Poster = pictureBoxPoster.ImageLocation+pictureBoxPoster.Image;
-            film.Saloon_ID = (int)comboBoxSaloon.SelectedValue;
             film.Status = true;
             filmManage.insert(film);
             MessageBox.Show("Bir Kayıt Oluşturuldu");
@@ -103,7 +102,6 @@ namespace CinemaApp
             film.Film_Genre = comboBoxUFilmGenreList.Text;
             film.Description = textBoxUDesc.Text;
             //film.Poster = pictureBoxPoster.ImageLocation+pictureBoxPoster.Image;
-            film.Saloon_ID = (int)comboBoxUSaloonList.SelectedValue;
             film.Status = true;
             filmManage.update(film);
             Clean();

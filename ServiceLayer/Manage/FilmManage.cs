@@ -26,7 +26,7 @@ namespace ServiceLayer.Manage
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(t.Name) && !string.IsNullOrWhiteSpace(t.Film_Genre) &&  t.Saloon_ID > 0)
+                if (!string.IsNullOrWhiteSpace(t.Name) && !string.IsNullOrWhiteSpace(t.Film_Genre))
                 {
                     db.Film.Add(t);
                     if (db.SaveChanges() > 0)
@@ -49,9 +49,10 @@ namespace ServiceLayer.Manage
             return db.Film.ToList();
         }
 
-        public List<Film> SLists(string filmname)
+        public List<string> SLists(int film_id)
         {
-            return db.GET_SALOONNAME(filmname).ToString().ToList();
+            var SaloonNameResult = db.SP_GET_SALOONNAME(film_id);
+            return SaloonNameResult.ToList();
         }
 
         public string update(Film t)
@@ -62,11 +63,10 @@ namespace ServiceLayer.Manage
                     var updatefilm = db.Film.Where(k => k.ID == t.ID).FirstOrDefault();
                     if (updatefilm != null)
                     {
-                    if (!string.IsNullOrWhiteSpace(t.Name) && !string.IsNullOrWhiteSpace(t.Film_Genre.ToString()) && !string.IsNullOrWhiteSpace(t.Saloon_ID.ToString()))
+                    if (!string.IsNullOrWhiteSpace(t.Name) && !string.IsNullOrWhiteSpace(t.Film_Genre.ToString()))
                         {
                             updatefilm.Name = t.Name;
                             updatefilm.Film_Genre = t.Film_Genre;
-                            updatefilm.Saloon_ID = t.Saloon_ID;
                             updatefilm.Status =true;
 
                         if (db.SaveChanges() > 0)
