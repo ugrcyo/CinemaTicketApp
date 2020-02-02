@@ -18,8 +18,8 @@ namespace DataBaseLayer
         public Saloon()
         {
             this.Seat = new HashSet<Seat>();
-            this.Ticket = new HashSet<Ticket>();
             this.Session = new HashSet<Session>();
+            this.Ticket = new HashSet<Ticket>();
         }
     
         public int ID { get; set; }
@@ -32,8 +32,8 @@ namespace DataBaseLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Seat> Seat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ticket> Ticket { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Session> Session { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

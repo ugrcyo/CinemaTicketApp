@@ -4,24 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3e8dc3aab1874192a62a4a6b6fbe2793" Name="Diagram1" ZoomLevel="63">
+      <Diagram DiagramId="3e8dc3aab1874192a62a4a6b6fbe2793" Name="Diagram1" ZoomLevel="142">
         <EntityTypeShape EntityType="CinemaDBModel.Film" Width="1.5" PointX="0.75" PointY="4.5" />
-        <EntityTypeShape EntityType="CinemaDBModel.Saloon" Width="1.5" PointX="3" PointY="4.375" />
         <EntityTypeShape EntityType="CinemaDBModel.Seat" Width="1.5" PointX="7.5" PointY="4.5" />
         <EntityTypeShape EntityType="CinemaDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.5" />
         <EntityTypeShape EntityType="CinemaDBModel.Ticket" Width="1.5" PointX="9.75" PointY="4.125" />
         <EntityTypeShape EntityType="CinemaDBModel.Ticket_Price" Width="1.5" PointX="7.5" PointY="0.75" />
         <EntityTypeShape EntityType="CinemaDBModel.Users" Width="1.5" PointX="2.75" PointY="8.5" />
-        <AssociationConnector Association="CinemaDBModel.FK_Saloon_Film" />
         <AssociationConnector Association="CinemaDBModel.FK_Ticket_Film" />
-        <AssociationConnector Association="CinemaDBModel.FK_Seat_Saloon" />
-        <AssociationConnector Association="CinemaDBModel.FK_Ticket_Saloon" />
         <AssociationConnector Association="CinemaDBModel.FK_Ticket_Seat" />
         <AssociationConnector Association="CinemaDBModel.FK_Ticket_Ticket_Price1" />
+        <EntityTypeShape EntityType="CinemaDBModel.Saloon" Width="1.5" PointX="3" PointY="4.375" />
         <EntityTypeShape EntityType="CinemaDBModel.Session" Width="1.5" PointX="5.25" PointY="4.75" />
+        <AssociationConnector Association="CinemaDBModel.FK_Saloon_Film" />
+        <AssociationConnector Association="CinemaDBModel.FK_Seat_Saloon" />
         <AssociationConnector Association="CinemaDBModel.FK_Session_Saloon" />
+        <AssociationConnector Association="CinemaDBModel.FK_Ticket_Saloon" />
         <AssociationConnector Association="CinemaDBModel.FK_Seat_Session" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

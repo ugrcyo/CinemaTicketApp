@@ -28,9 +28,13 @@ namespace CinemaApp
 
         private void FrmFilm_Load(object sender, EventArgs e)
         {
-            FillSaloonList();
             FillGenreList();
+            FillGenreList2();
             FillFilmList();
+            Clean();
+            DGList();
+
+
         }
         FilmManage filmManage = new FilmManage();
         Film film = new Film();
@@ -65,10 +69,29 @@ namespace CinemaApp
             Genre.Add("Comedy");
             Genre.Add("Drama");
             Genre.Add("Sci-Fi");
+            Genre.Add("Crime");
             comboBoxFilmGenre.DataSource = Genre;
+        }
+
+        private void FillGenreList2()
+        {
+            List<string> Genre = new List<string>();
+            Genre.Add("Comedy");
+            Genre.Add("Drama");
+            Genre.Add("Sci-Fi");
+            Genre.Add("Crime");
             comboBoxUFilmGenreList.DataSource = Genre;
         }
 
+        private void DGList()
+        {
+            dataGridViewFilmList.DataSource = filmManage.Lists();
+            dataGridViewFilmList.Columns["Poster"].Visible = false;
+            dataGridViewFilmList.Columns["ID"].Visible = false;
+            dataGridViewFilmList.Columns["Description"].Visible = false;
+            dataGridViewFilmList.Columns["Ticket"].Visible = false;
+            dataGridViewFilmList.Columns["Saloon"].Visible = false;
+        }
         private void FillFilmList()
         {
             comboBoxFilmList.DataSource = filmManage.Lists();
@@ -81,15 +104,7 @@ namespace CinemaApp
         /// <summary>
         /// 
         /// </summary>
-        private void FillSaloonList()
-        {
-            comboBoxSaloon.DataSource = salonManage.Lists();
-            comboBoxSaloon.ValueMember = "ID";
-            comboBoxSaloon.DisplayMember = "Name";
-            comboBoxUSaloonList.DataSource = salonManage.Lists();
-            comboBoxUSaloonList.ValueMember = "ID";
-            comboBoxUSaloonList.DisplayMember = "Name";
-        }
+       
         #endregion
 
 
@@ -98,13 +113,14 @@ namespace CinemaApp
         {
             int filmid = (int)comboBoxFilmList.SelectedValue;
             film.ID = filmid;
-            film.Name = comboBoxFilmList.Text;
+            film.Name = textBoxNewFilm.Text;
             film.Film_Genre = comboBoxUFilmGenreList.Text;
             film.Description = textBoxUDesc.Text;
             //film.Poster = pictureBoxPoster.ImageLocation+pictureBoxPoster.Image;
             film.Status = true;
             filmManage.update(film);
             Clean();
+            DGList();
         }
 
         SqlConnection baglanti = new SqlConnection("Server =(local); database=CinemaDB;trusted_connection=true;");
@@ -119,7 +135,7 @@ namespace CinemaApp
                 {
                     baglanti.Open();
                 }
-                int ara = Convert.ToInt32(comboBoxFilmList.SelectedValue);
+                int ara = Convert.ToInt32(comboBoxDFilmList.SelectedValue);
                 SqlCommand komut = new SqlCommand("Delete from Film Where ID='" + ara + "' ", baglanti);
                 int say = komut.ExecuteNonQuery();
                 if (say > 0)
@@ -142,10 +158,14 @@ namespace CinemaApp
         {
             textBoxFilm.Clear();
             textBoxDescription.Clear();
-
+            textBoxNewFilm.Clear();
+            comboBoxFilmList.SelectedIndex = -1;
+            comboBoxFilmGenre.SelectedIndex = -1;
+            comboBoxDFilmList.SelectedIndex = -1;
+            comboBoxUFilmGenreList.SelectedIndex = -1;
         }
 
-        private void dataGridViewSession_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void textBoxUDesc_TextChanged(object sender, EventArgs e)
         {
 
         }

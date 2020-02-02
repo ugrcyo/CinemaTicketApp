@@ -23,8 +23,8 @@ namespace DataBaseLayer
         public string Description { get; set; }
     
         public virtual Film Film { get; set; }
-        public virtual Saloon Saloon { get; set; }
         public virtual Seat Seat { get; set; }
         public virtual Ticket_Price Ticket_Price { get; set; }
+        public virtual Saloon Saloon { get; set; }
     }
 }

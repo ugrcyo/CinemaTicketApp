@@ -49,27 +49,26 @@ namespace ServiceLayer.Manage
             return db.Session.ToList();
         }
 
+       
+        
         public string update(Session t)
         {
             try
             {
                 var updatesession = db.Session.Where(k => k.ID == t.ID).FirstOrDefault();
-                if (updatesession != null)
-                {
+
                     if (!string.IsNullOrWhiteSpace(t.Session1.ToString()) && !string.IsNullOrWhiteSpace(t.Saloon_ID.ToString()))
                     {
-                        updatesession.Session1 = t.Session1;
-                        updatesession.Saloon_ID = t.Saloon_ID;
+                        
+                        db.Entry(updatesession).CurrentValues.SetValues(t);
 
                         if (db.SaveChanges() > 0)
                         {
-                            return  " Update successful";
+                            return " Update successful";
                         }
-                        return  " Update failed";
+                        return " Update failed";
                     }
                     return "Validation error";
-                }
-                return " Update failed";
             }
             catch (Exception msg)
             {

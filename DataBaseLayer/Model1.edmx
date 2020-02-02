@@ -10,7 +10,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Film_Genre" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Poster" Type="image" />
           <Property Name="Status" Type="bit" />
@@ -41,7 +41,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Saloon_ID" Type="int" />
+          <Property Name="Saloon_ID" Type="int" Nullable="false" />
           <Property Name="Session" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -122,7 +122,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Session_Saloon">
-          <End Role="Saloon" Type="Self.Saloon" Multiplicity="0..1" />
+          <End Role="Saloon" Type="Self.Saloon" Multiplicity="1" />
           <End Role="Session" Type="Self.Session" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Saloon">
@@ -338,26 +338,13 @@
           <Parameter Name="SALOON_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Film" EntityType="CinemaDBModel.Film" />
-          <EntitySet Name="Saloon" EntityType="CinemaDBModel.Saloon" />
           <EntitySet Name="Seat" EntityType="CinemaDBModel.Seat" />
           <EntitySet Name="sysdiagrams" EntityType="CinemaDBModel.sysdiagrams" />
           <EntitySet Name="Ticket" EntityType="CinemaDBModel.Ticket" />
           <EntitySet Name="Ticket_Price" EntityType="CinemaDBModel.Ticket_Price" />
           <EntitySet Name="Users" EntityType="CinemaDBModel.Users" />
-          <AssociationSet Name="FK_Saloon_Film" Association="CinemaDBModel.FK_Saloon_Film">
-            <End Role="Film" EntitySet="Film" />
-            <End Role="Saloon" EntitySet="Saloon" />
-          </AssociationSet>
           <AssociationSet Name="FK_Ticket_Film" Association="CinemaDBModel.FK_Ticket_Film">
             <End Role="Film" EntitySet="Film" />
-            <End Role="Ticket" EntitySet="Ticket" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Seat_Saloon" Association="CinemaDBModel.FK_Seat_Saloon">
-            <End Role="Saloon" EntitySet="Saloon" />
-            <End Role="Seat" EntitySet="Seat" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ticket_Saloon" Association="CinemaDBModel.FK_Ticket_Saloon">
-            <End Role="Saloon" EntitySet="Saloon" />
             <End Role="Ticket" EntitySet="Ticket" />
           </AssociationSet>
           <AssociationSet Name="FK_Ticket_Seat" Association="CinemaDBModel.FK_Ticket_Seat">
@@ -368,18 +355,31 @@
             <End Role="Ticket_Price" EntitySet="Ticket_Price" />
             <End Role="Ticket" EntitySet="Ticket" />
           </AssociationSet>
+          <FunctionImport Name="SP_GET_SESSIONTIME" ReturnType="Collection(String)">
+          <Parameter Name="SALOON_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Saloon" EntityType="CinemaDBModel.Saloon" />
           <EntitySet Name="Session" EntityType="CinemaDBModel.Session" />
+          <AssociationSet Name="FK_Saloon_Film" Association="CinemaDBModel.FK_Saloon_Film">
+            <End Role="Film" EntitySet="Film" />
+            <End Role="Saloon" EntitySet="Saloon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seat_Saloon" Association="CinemaDBModel.FK_Seat_Saloon">
+            <End Role="Saloon" EntitySet="Saloon" />
+            <End Role="Seat" EntitySet="Seat" />
+          </AssociationSet>
           <AssociationSet Name="FK_Session_Saloon" Association="CinemaDBModel.FK_Session_Saloon">
             <End Role="Saloon" EntitySet="Saloon" />
             <End Role="Session" EntitySet="Session" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Saloon" Association="CinemaDBModel.FK_Ticket_Saloon">
+            <End Role="Saloon" EntitySet="Saloon" />
+            <End Role="Ticket" EntitySet="Ticket" />
           </AssociationSet>
           <AssociationSet Name="FK_Seat_Session" Association="CinemaDBModel.FK_Seat_Session">
             <End Role="Session" EntitySet="Session" />
             <End Role="Seat" EntitySet="Seat" />
           </AssociationSet>
-          <FunctionImport Name="SP_GET_SESSIONTIME" ReturnType="Collection(String)">
-            <Parameter Name="SALOON_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -415,27 +415,13 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Film_Genre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Poster" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Saloon" Relationship="CinemaDBModel.FK_Saloon_Film" FromRole="Film" ToRole="Saloon" />
           <NavigationProperty Name="Ticket" Relationship="CinemaDBModel.FK_Ticket_Film" FromRole="Film" ToRole="Ticket" />
-        </EntityType>
-        <EntityType Name="Saloon">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Film_ID" Type="Int32" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Capacity" Type="Int32" />
-          <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="Film" Relationship="CinemaDBModel.FK_Saloon_Film" FromRole="Saloon" ToRole="Film" />
-          <NavigationProperty Name="Seat" Relationship="CinemaDBModel.FK_Seat_Saloon" FromRole="Saloon" ToRole="Seat" />
-          <NavigationProperty Name="Ticket" Relationship="CinemaDBModel.FK_Ticket_Saloon" FromRole="Saloon" ToRole="Ticket" />
-          <NavigationProperty Name="Session" Relationship="CinemaDBModel.FK_Session_Saloon" FromRole="Saloon" ToRole="Session" />
+          <NavigationProperty Name="Saloon" Relationship="CinemaDBModel.FK_Saloon_Film" FromRole="Film" ToRole="Saloon" />
         </EntityType>
         <EntityType Name="Seat">
           <Key>
@@ -446,8 +432,8 @@
           <Property Name="Session_ID" Type="Int32" Nullable="false" />
           <Property Name="Seat1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Saloon" Relationship="CinemaDBModel.FK_Seat_Saloon" FromRole="Seat" ToRole="Saloon" />
           <NavigationProperty Name="Ticket" Relationship="CinemaDBModel.FK_Ticket_Seat" FromRole="Seat" ToRole="Ticket" />
+          <NavigationProperty Name="Saloon" Relationship="CinemaDBModel.FK_Seat_Saloon" FromRole="Seat" ToRole="Saloon" />
           <NavigationProperty Name="Session" Relationship="CinemaDBModel.FK_Seat_Session" FromRole="Seat" ToRole="Session" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -472,9 +458,9 @@
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Film" Relationship="CinemaDBModel.FK_Ticket_Film" FromRole="Ticket" ToRole="Film" />
-          <NavigationProperty Name="Saloon" Relationship="CinemaDBModel.FK_Ticket_Saloon" FromRole="Ticket" ToRole="Saloon" />
           <NavigationProperty Name="Seat" Relationship="CinemaDBModel.FK_Ticket_Seat" FromRole="Ticket" ToRole="Seat" />
           <NavigationProperty Name="Ticket_Price" Relationship="CinemaDBModel.FK_Ticket_Ticket_Price1" FromRole="Ticket" ToRole="Ticket_Price" />
+          <NavigationProperty Name="Saloon" Relationship="CinemaDBModel.FK_Ticket_Saloon" FromRole="Ticket" ToRole="Saloon" />
         </EntityType>
         <EntityType Name="Ticket_Price">
           <Key>
@@ -496,18 +482,6 @@
           <Property Name="User_Type" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_Saloon_Film">
-          <End Type="CinemaDBModel.Film" Role="Film" Multiplicity="0..1" />
-          <End Type="CinemaDBModel.Saloon" Role="Saloon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Film">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Saloon">
-              <PropertyRef Name="Film_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Ticket_Film">
           <End Type="CinemaDBModel.Film" Role="Film" Multiplicity="1" />
           <End Type="CinemaDBModel.Ticket" Role="Ticket" Multiplicity="*" />
@@ -517,30 +491,6 @@
             </Principal>
             <Dependent Role="Ticket">
               <PropertyRef Name="Film_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Seat_Saloon">
-          <End Type="CinemaDBModel.Saloon" Role="Saloon" Multiplicity="1" />
-          <End Type="CinemaDBModel.Seat" Role="Seat" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Saloon">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Seat">
-              <PropertyRef Name="Saloon_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ticket_Saloon">
-          <End Type="CinemaDBModel.Saloon" Role="Saloon" Multiplicity="1" />
-          <End Type="CinemaDBModel.Ticket" Role="Ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Saloon">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Ticket">
-              <PropertyRef Name="Saloon_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -568,24 +518,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Saloon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Film_ID" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Capacity" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Film" Relationship="CinemaDBModel.FK_Saloon_Film" FromRole="Saloon" ToRole="Film" />
+          <NavigationProperty Name="Seat" Relationship="CinemaDBModel.FK_Seat_Saloon" FromRole="Saloon" ToRole="Seat" />
+          <NavigationProperty Name="Session" Relationship="CinemaDBModel.FK_Session_Saloon" FromRole="Saloon" ToRole="Session" />
+          <NavigationProperty Name="Ticket" Relationship="CinemaDBModel.FK_Ticket_Saloon" FromRole="Saloon" ToRole="Ticket" />
+        </EntityType>
         <EntityType Name="Session">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Saloon_ID" Type="Int32" />
+          <Property Name="Saloon_ID" Type="Int32" Nullable="false" />
           <Property Name="Session1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Saloon" Relationship="CinemaDBModel.FK_Session_Saloon" FromRole="Session" ToRole="Saloon" />
           <NavigationProperty Name="Seat" Relationship="CinemaDBModel.FK_Seat_Session" FromRole="Session" ToRole="Seat" />
         </EntityType>
+        <Association Name="FK_Saloon_Film">
+          <End Type="CinemaDBModel.Film" Role="Film" Multiplicity="0..1" />
+          <End Type="CinemaDBModel.Saloon" Role="Saloon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Saloon">
+              <PropertyRef Name="Film_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seat_Saloon">
+          <End Type="CinemaDBModel.Saloon" Role="Saloon" Multiplicity="1" />
+          <End Type="CinemaDBModel.Seat" Role="Seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Saloon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Seat">
+              <PropertyRef Name="Saloon_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Session_Saloon">
-          <End Type="CinemaDBModel.Saloon" Role="Saloon" Multiplicity="0..1" />
+          <End Type="CinemaDBModel.Saloon" Role="Saloon" Multiplicity="1" />
           <End Type="CinemaDBModel.Session" Role="Session" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Saloon">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Session">
+              <PropertyRef Name="Saloon_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Saloon">
+          <End Type="CinemaDBModel.Saloon" Role="Saloon" Multiplicity="1" />
+          <End Type="CinemaDBModel.Ticket" Role="Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Saloon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ticket">
               <PropertyRef Name="Saloon_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -641,17 +641,6 @@
                 <ScalarProperty Name="Poster" ColumnName="Poster" />
                 <ScalarProperty Name="Film_Genre" ColumnName="Film_Genre" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Saloon">
-            <EntityTypeMapping TypeName="CinemaDBModel.Saloon">
-              <MappingFragment StoreEntitySet="Saloon">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Film_ID" ColumnName="Film_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -712,6 +701,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_GET_SESSIONTIME" FunctionName="CinemaDBModel.Store.SP_GET_SESSIONTIME" />
+          <EntitySetMapping Name="Saloon">
+            <EntityTypeMapping TypeName="CinemaDBModel.Saloon">
+              <MappingFragment StoreEntitySet="Saloon">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Film_ID" ColumnName="Film_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Session">
             <EntityTypeMapping TypeName="CinemaDBModel.Session">
               <MappingFragment StoreEntitySet="Session">
@@ -721,7 +722,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SP_GET_SESSIONTIME" FunctionName="CinemaDBModel.Store.SP_GET_SESSIONTIME" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

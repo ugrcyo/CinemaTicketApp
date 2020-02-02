@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataBaseLayer;
+using ServiceLayer.OPPClass;
 
 namespace CinemaApp
 {
@@ -17,9 +19,13 @@ namespace CinemaApp
             InitializeComponent();
         }
 
+        CinemaDBEntities db = new CinemaDBEntities();
+
+        Saloon saloon = new Saloon();
 
         private void FrmSln1_Load(object sender, EventArgs e)
         {
+          
             checkBox1.BackColor = Color.Green;
             checkBox2.BackColor = Color.Green;
             checkBox3.BackColor = Color.Green;

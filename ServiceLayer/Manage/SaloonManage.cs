@@ -38,6 +38,18 @@ namespace ServiceLayer.Manage
             }
         }
 
+        public bool islemOnayBilgisi(string kelime)
+        {
+            kelime = kelime.ToLower();
+            bool sonuc = (kelime.Contains("başarılı") || kelime.Contains("Başarılı"));
+            return sonuc;
+        }
+
+        public string GetSaloonName(int saloonid)
+        {
+            return db.Saloon.FirstOrDefault(k => k.ID == saloonid).Name;
+        }
+
         public string delete(Saloon saloon)
         {
 
@@ -83,9 +95,9 @@ namespace ServiceLayer.Manage
 
                         if (db.SaveChanges() > 0)
                         {
-                            return saloon.ID + " Update successful";
+                            return saloon.Name + " Update successful";
                         }
-                        return saloon.ID + " Update failed";
+                        return saloon.Name + " Update failed";
                     }
                     return "Validation error";
                 }

@@ -141,6 +141,7 @@
             this.buttonViewSaloon.TabIndex = 10;
             this.buttonViewSaloon.Text = "View Saloon";
             this.buttonViewSaloon.UseVisualStyleBackColor = true;
+            this.buttonViewSaloon.Click += new System.EventHandler(this.buttonViewSaloon_Click);
             // 
             // FrmTicket
             // 

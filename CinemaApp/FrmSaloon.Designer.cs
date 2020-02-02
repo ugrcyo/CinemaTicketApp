@@ -127,6 +127,7 @@
             this.dataGridViewSalonList.Name = "dataGridViewSalonList";
             this.dataGridViewSalonList.Size = new System.Drawing.Size(833, 159);
             this.dataGridViewSalonList.TabIndex = 0;
+            this.dataGridViewSalonList.DoubleClick += new System.EventHandler(this.dataGridViewSalonList_DoubleClick);
             // 
             // label5
             // 

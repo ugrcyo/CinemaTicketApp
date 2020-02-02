@@ -26,9 +26,7 @@ namespace CinemaApp
         SaloonManage sln = new SaloonManage();
         Saloon newSaloon = new Saloon();
         CinemaDBEntities db = new CinemaDBEntities();
-        SqlConnection baglanti = new SqlConnection("Server =(local); database=CinemaDB;trusted_connection=true;");
 
-        public SqlConnection Baglanti { get => baglanti; set => baglanti = value; }
 
         private void FrmSaloon_Load(object sender, EventArgs e)
         {
@@ -40,9 +38,7 @@ namespace CinemaApp
             comboBoxSlist.DisplayMember = "Name";
             comboBoxSlist.ValueMember = "ID";
 
-
-            dataGridViewSalonList.DataSource = sln.Lists();
-
+            DGList();
         }
 
 
@@ -68,8 +64,8 @@ namespace CinemaApp
         {
             int salonid = (int)comboBoxSaloonList.SelectedValue;
             newSaloon.ID = salonid;
-            newSaloon.Name = comboBoxSaloonList.Text;
-            newSaloon.Capacity =Convert.ToInt16(textBoxNCapacity.Text);
+            newSaloon.Name = textBoxNewSName.Text;
+            newSaloon.Capacity = Convert.ToInt16(textBoxNCapacity.Text);
 
             string updateResult = sln.update(newSaloon);
             
@@ -77,21 +73,26 @@ namespace CinemaApp
 
         }
 
+        SqlConnection baglanti = new SqlConnection("Server =(local); database=CinemaDB;trusted_connection=true;");
+
+        public SqlConnection Baglanti { get => baglanti; set => baglanti = value; }
+
         private void button2_Click(object sender, EventArgs e)
         {
-
+      
             try
             {
                 if (baglanti.State == ConnectionState.Closed)
                 {
                     baglanti.Open();
                 }
-                int ara = Convert.ToInt32(comboBoxSaloonList.SelectedValue);
+                int ara = Convert.ToInt32(comboBoxSlist.SelectedValue);
                 SqlCommand komut = new SqlCommand("Delete from Saloon Where ID='" + ara + "' ", baglanti);
                 int say = komut.ExecuteNonQuery();
                 if (say > 0)
                 {
                     MessageBox.Show("Bir Kayıt Silindi");
+                    Clean();
                 }
             }
             catch (Exception ex)
@@ -102,9 +103,32 @@ namespace CinemaApp
             finally
             {
                 baglanti.Close();
-            }
+            }       
+
+    }
+        int saloonid;
+
+        private void dataGridViewSalonList_DoubleClick(object sender, EventArgs e)
+        {
+            string name = sln.GetSaloonName((int)dataGridViewSalonList.CurrentRow.Cells["ID"].Value);
+            comboBoxSaloonList.Text = name;
+            saloonid = (int)dataGridViewSalonList.CurrentRow.Cells["ID"].Value;
+
+            string dname = sln.GetSaloonName((int)dataGridViewSalonList.CurrentRow.Cells["ID"].Value);
+            comboBoxSlist.Text = dname;
+            saloonid = (int)dataGridViewSalonList.CurrentRow.Cells["ID"].Value;
+
+
         }
 
-     
+        private void DGList()
+        {
+            dataGridViewSalonList.DataSource = sln.Lists();
+            dataGridViewSalonList.Columns["Film"].Visible = false;
+            dataGridViewSalonList.Columns["Film_ID"].Visible = false;
+            dataGridViewSalonList.Columns["Seat"].Visible = false;
+            dataGridViewSalonList.Columns["Ticket"].Visible = false;
+            dataGridViewSalonList.Columns["Session"].Visible = false;
+        }
     }
 }

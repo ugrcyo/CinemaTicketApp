@@ -24,6 +24,7 @@ namespace CinemaApp
         SaloonManage sln = new SaloonManage();
         SessionManage smng = new SessionManage();
         Session session = new Session();
+        Saloon saloon = new Saloon();
        
         CinemaDBEntities db = new CinemaDBEntities();
         SqlConnection baglanti = new SqlConnection("Server =(local); database=CinemaDB;trusted_connection=true;");
@@ -36,7 +37,12 @@ namespace CinemaApp
             comboBoxSaloonLists.DisplayMember = "Name";
             comboBoxSaloonLists.ValueMember = "ID";
 
-            dataGridView1.DataSource =smng.Lists();
+            dataGridView1.DataSource = smng.Lists();
+            dataGridView1.Columns["Saloon"].Visible = false;
+            dataGridView1.Columns["Seat"].Visible = false;
+
+
+
 
         }
 
@@ -50,17 +56,24 @@ namespace CinemaApp
 
         private void toolStripButtonUpdate_Click(object sender, EventArgs e)
         {
-            
-         
+            var id = db.Saloon.FirstOrDefault(k => k.Name == comboBoxSaloonLists.Text).ID;
+            session.ID = id;
+            session.Saloon_ID =(int) comboBoxSaloonLists.SelectedValue;
             session.Session1 =maskedTextBoxSession.Text;
             string updateResult = smng.update(session);
             MessageBox.Show(updateResult);
         }
-        
+        int saloonid;
+     
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
-        {
-            maskedTextBoxSession.Text = dataGridView1.CurrentRow.Cells["Session1"].Value.ToString();
-            session.ID = (int)dataGridView1.CurrentRow.Cells["ID"].Value;
+        { 
+            string name = sln.GetSaloonName((int)dataGridView1.CurrentRow.Cells["Saloon_ID"].Value);
+            comboBoxSaloonLists.Text = name;
+            saloonid = (int)dataGridView1.CurrentRow.Cells["Saloon_ID"].Value;
+
+            string name = sln.GetSaloonName((int)dataGridView1.CurrentRow.Cells["Saloon_ID"].Value);
+            comboBoxSaloonLists.Text = name;
+            saloonid = (int)dataGridView1.CurrentRow.Cells["Saloon_ID"].Value;
         }
 
         private void toolStripButtonDelete_Click(object sender, EventArgs e)
@@ -90,6 +103,9 @@ namespace CinemaApp
             }
         }
 
-        
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

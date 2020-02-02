@@ -26,9 +26,9 @@ namespace DataBaseLayer
         public string Seat1 { get; set; }
         public bool Status { get; set; }
     
-        public virtual Saloon Saloon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Ticket { get; set; }
+        public virtual Saloon Saloon { get; set; }
         public virtual Session Session { get; set; }
     }
 }

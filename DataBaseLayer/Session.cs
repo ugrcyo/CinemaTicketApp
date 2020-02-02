@@ -21,7 +21,7 @@ namespace DataBaseLayer
         }
     
         public int ID { get; set; }
-        public Nullable<int> Saloon_ID { get; set; }
+        public int Saloon_ID { get; set; }
         public string Session1 { get; set; }
     
         public virtual Saloon Saloon { get; set; }

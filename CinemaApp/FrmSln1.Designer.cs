@@ -54,6 +54,7 @@
             this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.checkBox16 = new System.Windows.Forms.CheckBox();
             this.checkBox21 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label71
@@ -341,11 +342,22 @@
             this.checkBox21.UseVisualStyleBackColor = true;
             this.checkBox21.CheckedChanged += new System.EventHandler(this.checkBox21_CheckedChanged_1);
             // 
-            // FrmTicket
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.Location = new System.Drawing.Point(26, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(158, 25);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Salon 1 - 4DX";
+            // 
+            // FrmSln1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox21);
             this.Controls.Add(this.checkBox16);
             this.Controls.Add(this.checkBox11);
@@ -372,7 +384,7 @@
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label71);
-            this.Name = "FrmTicket";
+            this.Name = "FrmSln1";
             this.Text = "FrmTicket";
             this.Load += new System.EventHandler(this.FrmSln1_Load);
             this.ResumeLayout(false);
@@ -408,5 +420,6 @@
         private System.Windows.Forms.CheckBox checkBox11;
         private System.Windows.Forms.CheckBox checkBox16;
         private System.Windows.Forms.CheckBox checkBox21;
+        private System.Windows.Forms.Label label1;
     }
 }
